@@ -1,4 +1,4 @@
-package com.example.demo_new.model;
+package com.example.demo.model;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

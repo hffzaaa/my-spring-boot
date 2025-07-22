@@ -1,3 +1,3 @@
-package com.example.demo_new.model;
+package com.example.demo.model;
 
 public record Item(Long id, String value) {}

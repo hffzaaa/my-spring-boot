@@ -1,4 +1,4 @@
-package com.example.demo_new.service;
+package com.example.demo.service;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo_new.model.Data;
-import com.example.demo_new.model.Item;
+import com.example.demo.model.Data;
+import com.example.demo.model.Item;
 
 @Service // Mark this as a Spring service component
 public class ItemService {

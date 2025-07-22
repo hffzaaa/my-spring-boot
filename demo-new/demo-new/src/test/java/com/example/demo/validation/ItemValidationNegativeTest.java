@@ -1,4 +1,4 @@
-package com.example.demo_new.validation;
+package com.example.demo.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.example.demo_new.validation.ItemValidation;
+import com.example.demo.validation.ItemValidation;
 
 public class ItemValidationNegativeTest {
 

@@ -1,10 +1,10 @@
 // src/test/java/com/example/demo/validation/ItemValidationSimpleTest.java
-package com.example.demo_new.validation;
+package com.example.demo.validation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.example.demo_new.validation.ItemValidation;
+import com.example.demo.validation.ItemValidation;
 
 import static org.junit.jupiter.api.Assertions.*; // Import static methods for assertions
 

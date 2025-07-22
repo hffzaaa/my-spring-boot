@@ -1,9 +1,10 @@
-package com.example.demo_new.service;
+package com.example.demo.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.example.demo_new.model.Item;
+import com.example.demo.model.Item;
+import com.example.demo.service.ItemService;
 
 import java.util.List;
 import java.util.Optional;

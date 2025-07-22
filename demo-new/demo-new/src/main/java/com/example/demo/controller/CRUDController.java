@@ -1,4 +1,4 @@
-package com.example.demo_new.controller;
+package com.example.demo.controller;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo_new.model.Data;
-import com.example.demo_new.model.Item;
-import com.example.demo_new.service.ItemService;
-import com.example.demo_new.service.ItemServiceAnalysis;
+import com.example.demo.model.Data;
+import com.example.demo.model.Item;
+import com.example.demo.service.ItemService;
+import com.example.demo.service.ItemServiceAnalysis;
+import com.example.demo.util.ResponseEntityUtil;
+import com.example.demo.validation.ItemValidation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -48,10 +50,14 @@ public class CRUDController {
 
 //	private final Map<Long, String> dataStore = new ConcurrentHashMap<>();
 	private final AtomicLong idCounter = new AtomicLong();
-	
+	private final ItemService itemService;
 
     @Autowired
     private ItemServiceAnalysis itemServiceAnalysis;
+    
+    public CRUDController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
 	// --- CREATE (HTTP POST) ---
 	@PostMapping
@@ -77,16 +83,16 @@ public class CRUDController {
 		return new ResponseEntity<>(Data.getDataStore(), HttpStatus.OK); // 200 OK
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<String> getItemById(@PathVariable Long id) {
-		String item = Data.getDataStore().get(id);
-		if (item != null) {
-			return new ResponseEntity<>("Found item with ID: " + id + " and data: " + item, HttpStatus.OK); // 200 OK if
-																											// found
-		}
-		return new ResponseEntity<>("Item with ID: " + id + " not found.", HttpStatus.NOT_FOUND); // 404 Not Found if
-																									// not found
-	}
+	// --- READ (By ID) ---
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getItemById(@PathVariable String id) {
+        ItemValidation.parseAndValidateLongId(id);
+    	
+    	return itemService.getItemById(Long.valueOf(id))
+                .map(item -> ResponseEntityUtil.buildResponse("Found item with ID: " + item.id() + " and data: " + item.value(), HttpStatus.OK))
+                .orElseGet(() -> ResponseEntityUtil.buildResponse("Item with ID: " + id + " not found.", HttpStatus.NOT_FOUND));
+    }
+	
 	
 	// --- READ demo items only ---
     @GetMapping("/demo")
@@ -113,10 +119,6 @@ public class CRUDController {
 	        return new ResponseEntity<>("Item with ID: " + id + " not found for update.", HttpStatus.NOT_FOUND); // 404 Not Found if not found
 	    }
 	}
-//	@GetMapping("/items/search/demo")
-//	public List<Item> getItemsWithDemo() {
-//	    return itemServiceAnalysis.getAllItemsWithDemo();
-//	}
 
 	// --- DELETE (HTTP DELETE) ---
 	@DeleteMapping("/{id}")
