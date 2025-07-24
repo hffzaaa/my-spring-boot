@@ -1,12 +1,13 @@
 // src/test/java/com/example/demo/validation/ItemValidationSimpleTest.java
 package com.example.demo.validation;
 
+// Import static methods for assertions
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import com.example.demo.validation.ItemValidation;
-
-import static org.junit.jupiter.api.Assertions.*; // Import static methods for assertions
 
 class ItemValidationPositiveTest {
 

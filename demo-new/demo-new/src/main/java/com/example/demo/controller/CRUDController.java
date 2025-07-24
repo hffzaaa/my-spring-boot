@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +21,6 @@ import com.example.demo.service.ItemService;
 import com.example.demo.service.ItemServiceAnalysis;
 import com.example.demo.util.ResponseEntityUtil;
 import com.example.demo.validation.ItemValidation;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/demo/v1") // Base path for all endpoints in this controller
@@ -48,10 +44,10 @@ import java.util.Optional;
 
 public class CRUDController {
 
-//	private final Map<Long, String> dataStore = new ConcurrentHashMap<>();
-	private final AtomicLong idCounter = new AtomicLong();
-	private final ItemService itemService;
 
+//	private final AtomicLong idCounter = new AtomicLong();
+	private final ItemService itemService;
+	private static final String ITEM_ID_PREFIX = "Item with ID: ";
     @Autowired
     private ItemServiceAnalysis itemServiceAnalysis;
     
@@ -67,7 +63,7 @@ public class CRUDController {
 																										// Request if
 																										// name is empty
 		}
-		long newId = idCounter.incrementAndGet();
+		long newId = Data.getidCounter().incrementAndGet();
 		Data.getDataStore().put(newId, newItemName);
 		// Returning the ID and the data for confirmation
 		return new ResponseEntity<>("Item created successfully with ID: " + newId + " and data: " + newItemName,
@@ -88,9 +84,11 @@ public class CRUDController {
     public ResponseEntity<String> getItemById(@PathVariable String id) {
         ItemValidation.parseAndValidateLongId(id);
     	
-    	return itemService.getItemById(Long.valueOf(id))
-                .map(item -> ResponseEntityUtil.buildResponse("Found item with ID: " + item.id() + " and data: " + item.value(), HttpStatus.OK))
-                .orElseGet(() -> ResponseEntityUtil.buildResponse("Item with ID: " + id + " not found.", HttpStatus.NOT_FOUND));
+        return itemService.getItemById(Long.valueOf(id))
+                .map(item -> ResponseEntityUtil.buildResponse(
+                        "Found " + ITEM_ID_PREFIX + item.id() + " and data: " + item.value(), HttpStatus.OK))
+                .orElseGet(() -> ResponseEntityUtil.buildResponse(
+                        ITEM_ID_PREFIX + id + " not found.", HttpStatus.NOT_FOUND));
     }
 	
 	
