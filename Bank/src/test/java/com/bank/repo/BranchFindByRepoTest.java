@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test") // Uses application-test.properties for H2 setup
-public class BranchFindByRepoTest {
+class BranchFindByRepoTest {
 
     @Autowired
     private IBranchRepo branchRepo;

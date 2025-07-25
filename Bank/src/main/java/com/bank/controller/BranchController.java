@@ -71,12 +71,12 @@ public class BranchController {
 	@GetMapping("/{id}")
 	public ResponseEntity<BranchDTO> getBranchById(@PathVariable Long id){
 		return ResponseEntity.ok(branchMapper.toDto(branchService.getBranchById(id)));
-	};
+	}
 	
 	@GetMapping
     public ResponseEntity<List<BranchDTO>> getAllBranch() {
         return ResponseEntity.ok(branchMapper.toDtoList(branchService.getAllBranch()));
-    };
+    }
 	
 	@PostMapping
 	public ResponseEntity<BranchDTO> createBranch(@RequestBody BranchDTO branchDTO) {
@@ -87,7 +87,7 @@ public class BranchController {
 	                    branchService.createBranch(branchMapper.toEntity(branchDTO))
 	            )
 	    );
-	};
+	}
 
 		
 
@@ -95,18 +95,18 @@ public class BranchController {
     public ResponseEntity<Void> deleteBranch(@PathVariable Long id) {
         branchService.deleteBranch(id);
         return ResponseEntity.noContent().build();
-    };
+    }
     
     // Search branch by name (case-insensitive contains)
     @GetMapping("/search")
     public ResponseEntity<List<BranchDTO>> searchByBranchName(@RequestParam String name){
     	return ResponseEntity.ok(branchMapper.toDtoList(branchService.searchBranchByName(name)));
-    };
+    }
     
  // Search branch by creation date
     @GetMapping("/search-by-date")
     public ResponseEntity<List<BranchDTO>> searchByCreationDateRange(@RequestParam LocalDateTime from, @RequestParam LocalDateTime to){
     	return ResponseEntity.ok(branchMapper.toDtoList(branchService.searchBranchByCreationDateBetween(from, to)));
-    };
+    }
     
 }

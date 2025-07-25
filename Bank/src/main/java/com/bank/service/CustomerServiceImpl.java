@@ -7,10 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bank.entity.AccountEntity;
 import com.bank.entity.CustomerEntity;
-import com.bank.mapper.CustomerMapper;
-import com.bank.model.CustomerDTO;
 import com.bank.repo.ICustomerRepo;
 
 import jakarta.transaction.Transactional;
@@ -23,8 +20,6 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     private ICustomerRepo customerRepo;
     
-    @Autowired
-    private CustomerMapper customerMapper;
 
     @Override
     public CustomerEntity createCustomer(CustomerEntity customer) {
@@ -34,10 +29,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Transactional()
     @Override
     public Optional<CustomerEntity> getCustomerById(Long id) {
-    	                                   
-    	Optional<CustomerEntity>  customer = customerRepo.findById(id);
-
-    	return customer;
+        return customerRepo.findById(id);
     }
 
     @Override

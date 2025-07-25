@@ -44,7 +44,7 @@ public class BranchServiceImpl implements IBranchService {
     @Override
     public void deleteBranch(Long id) {
         if (!branchRepo.existsById(id)) {
-        	// throw new DemoAppException("Cannot delete. Branch not found with ID: " + id);
+        	
         }
         branchRepo.deleteById(id);
     }

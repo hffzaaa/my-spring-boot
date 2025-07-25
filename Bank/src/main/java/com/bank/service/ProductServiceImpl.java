@@ -1,12 +1,11 @@
 package com.bank.service;
 
 import java.util.List;
+import java.util.Collections;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bank.entity.ProductEntity;
-import com.bank.repo.IProductRepo;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -14,7 +13,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<ProductEntity> getAllProducts() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -36,6 +35,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void deleteProduct(Long id) {
-        
+        // 
     }
 }
