@@ -28,11 +28,12 @@ public class ProductController {
 
     private final ProductMapper productMapper;
 
-//    @GetMapping
-//    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-//    	throw new DemoAppException("Demo exception testing");
-//
-//    }
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+    	var entities = productService.getAllProducts();
+    	return ResponseEntity.ok(productMapper.toDtoList(entities));
+
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {

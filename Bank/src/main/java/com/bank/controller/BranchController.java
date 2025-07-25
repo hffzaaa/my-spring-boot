@@ -18,6 +18,8 @@ import com.bank.model.BranchDTO;
 import com.bank.service.IBranchService;
 
 import lombok.AllArgsConstructor;
+import com.bank.validation.BranchValidation;
+
 
 @RestController
 @RequestMapping("/api/branches/v1")
@@ -78,10 +80,7 @@ public class BranchController {
 	
 	@PostMapping
 	public ResponseEntity<BranchDTO> createBranch(@RequestBody BranchDTO branchDTO) {
-	    if (branchDTO.getBranchName() == null || branchDTO.getBranchName().trim().isEmpty()) {
-	        // throw new DemoAppException("Branch Name cannot be empty");
-	        return ResponseEntity.badRequest().build(); // <-- Add a return statement here to handle invalid input
-	    };
+	    BranchValidation.validateBranchName(branchDTO.getBranchName());
 
 	    return ResponseEntity.ok(
 	            branchMapper.toDto(
